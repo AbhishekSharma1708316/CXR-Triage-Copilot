@@ -1,22 +1,35 @@
 # CXR-Triage Copilot
 
-**Explainable chest X-ray triage with a guideline-grounded clinical assistant.**
+**Safety-aware chest X-ray triage: a calibrated model, a frozen decision policy with explicit safety targets, a transparent clinical-rules layer, and an honest audit of its explanations.**
 A research prototype built on the RSNA Pneumonia Detection Challenge data.
 
-> **Not a medical device.** This project is educational and experimental. It does not diagnose, prescribe, or replace a clinician. India's Telemedicine Practice Guidelines (2020) do not allow AI platforms to counsel patients or prescribe medicines, so the language-model component of this project only *explains* computed results and never suggests drugs or doses.
+> **Not a medical device.** This is an educational/research prototype. It does not diagnose, prescribe or replace a clinician. India's Telemedicine Practice Guidelines (2020) do not allow AI platforms to counsel patients or prescribe medicines, so the language-model component planned for this project may only *explain* computed results and never suggest drugs or doses.
 
 ---
 
 ## Overview
 
-Chest X-ray queues are long, and urgent cases can wait behind routine ones. This project builds a triage assistant that:
+Chest X-ray queues are long, and urgent cases can wait behind routine ones. This project routes each scan to **Routine / Review soon / Urgent** and is evaluated on the question that matters for prioritisation: *how many pneumonia-like cases does the system wrongly send to Routine, and how many scans can it safely deprioritise?*
 
-1. classifies a chest X-ray into a triage level (**Routine / Review soon / Urgent**),
-2. shows *where* the model looked (Grad-CAM) and checks that against radiologist annotations,
-3. combines the image result with patient intake details through a transparent, rule-based clinical layer,
-4. uses an LLM to write a clinician hand-off summary and a plain-language explanation, grounded in public guidelines and verified by a safety layer.
+Built and tested so far:
 
-The LLM never makes the decision. Decisions come from deterministic, unit-tested code; the LLM communicates them.
+1. a leak-free data pipeline and an audit that found a label shortcut (AP/PA view),
+2. a pretrained DenseNet121 compared with a from-scratch CNN and a view-only baseline,
+3. calibrated probabilities and a triage policy with per-view thresholds, frozen **before** the test set was touched,
+4. a single evaluation on a held-out test set,
+5. an audit of Grad-CAM explanations against radiologist boxes (with a baseline and a sanity check),
+6. an error analysis of the cases the system misses,
+7. the frozen imaging policy as importable code, a sourced clinical-rules layer (CRB-65 and red flags) and an escalate-only fusion step, all unit-tested.
+
+## Scope and honesty: what this is and is not
+
+- **The triage levels are a proxy we defined.** The dataset labels describe findings (Normal / No Lung Opacity-Not Normal / Lung Opacity), not clinical urgency. Mapping them to Routine / Review soon / Urgent is our assumption, not a clinical standard. "Urgent recall" therefore means recall of opacity-labelled cases.
+- **The safety targets (flag at least 80% of opacity cases, send at most 2% to Routine) are policy choices**, not medical standards. On the test set the 2% target was met overall and in AP films but not in PA films, and Urgent recall (78.5%) was slightly below 80%.
+- **The evaluation is retrospective, on one curated dataset.** Its class mix is not a hospital queue, so workload figures such as "22% of scans deprioritised" will not transfer to real practice. There is no external validation yet.
+- **Explanations are weak.** Grad-CAM heatmaps depend on what the model learned but localise no better than a typical-location guess, so they are used only for scans flagged Urgent and described as "the area the model focused on".
+- **The clinical rules use UK guidance** (BTS, NHS, Asthma + Lung UK) and have not been reviewed by a clinician. Local guidance may differ.
+- **The language-model explainer is not built yet.** Only the rules, the fusion step and (in progress) the knowledge base exist.
+- Research prototype only; not for clinical use.
 
 ## Status
 
@@ -24,15 +37,17 @@ The LLM never makes the decision. Decisions come from deterministic, unit-tested
 |---|---|
 | Data audit and leak-free split | Done |
 | Baselines (view-only, small CNN) | Done |
-| DenseNet121 transfer learning + view-balanced ablation | Done (validation set) |
-| Threshold selection and calibration | Next |
-| Grad-CAM + localization check against radiologist boxes | Planned |
-| Error analysis and final test-set evaluation | Planned |
-| External validation on a second dataset | Planned |
-| Clinical rules layer (CRB-65 + red flags) | Planned |
-| Guideline RAG + LLM explainer + output verifier | Planned |
-| Evaluation harness (safety, faithfulness, retrieval) | Planned |
-| API and demo UI | Planned |
+| DenseNet121 transfer learning + view-balanced ablation | Done |
+| Calibration and per-view triage thresholds | Done |
+| Grad-CAM audit vs radiologist boxes | Done |
+| Error analysis | Done |
+| Final test-set evaluation (single run) | Done |
+| Imaging policy as code, clinical rules (CRB-65 + red flags), escalate-only fusion, unit tests | Done |
+| Knowledge cards and retrieval | In progress |
+| Explain-only LLM (Gemini API) with output verifier | Planned |
+| Evaluation harness for the LLM layer (safety, faithfulness, retrieval) | Planned |
+| API and demo | Planned |
+| External validation on a second dataset | Planned (optional) |
 
 ## Triage mapping
 
@@ -42,40 +57,17 @@ The LLM never makes the decision. Decisions come from deterministic, unit-tested
 | No Lung Opacity / Not Normal | Review soon |
 | Lung Opacity | Urgent |
 
-## Planned architecture
-
-```
-Intake form (age, symptoms, RR, SpO2, BP, confusion...)  +  chest X-ray
-        |                                                      |
-        v                                                      v
- Clinical rules layer                          DenseNet121 -> class probabilities
- (red flags + CRB-65)                          + Grad-CAM + lung zone
-        +--------------------------+--------------------------+
-                                   v
-            Final priority = the MORE urgent of image / clinical
-                                   v
-              RAG over public pneumonia guidelines
-                                   v
-     LLM writer (JSON schema, every claim cites a retrieved passage)
-       -> clinician hand-off summary
-       -> plain-language explanation + questions to ask a doctor
-       -> warning signs / when to seek emergency care
-                                   v
-     Verifier: blocks drug names/doses, checks text matches the computed
-     priority, validates citations, falls back to a template on failure
-```
-
-Design rules: red flags can only escalate, never de-escalate; missing intake fields count as "unknown", never as normal; no diagnoses, drugs or doses in any output.
+The imaging policy: **Urgent** if P(opacity) >= t_urgent; otherwise **Routine** if P(normal) >= t_routine; otherwise **Review soon**. "Routine" is deliberately hard to earn.
 
 ## Data
 
-- **Source:** RSNA Pneumonia Detection Challenge (Kaggle), derived from NIH ChestX-ray14. The data is **not included** in this repository; see *Reproducing* below.
-- **Size:** 26,684 frontal radiographs, one per patient ID; DICOM, 1024x1024, 8-bit.
+- **Source:** RSNA Pneumonia Detection Challenge (Kaggle), derived from NIH ChestX-ray14. The data is **not included** in this repository.
+- **Size:** 26,684 frontal radiographs, one per patient ID; DICOM, 1024x1024.
 - **Classes:** Normal 8,851 | No Lung Opacity / Not Normal 11,821 | Lung Opacity 6,012 (9,555 radiologist bounding boxes).
-- **Split:** 70/15/15, stratified by class, seed 42 -> 18,678 train / 4,003 val / 4,003 test. Every image has a unique patient ID, so the split is leak-free at patient level.
-- **Preprocessing:** resized to 256x256, stored as one `uint8` array (1.75 GB), ImageNet normalization, grayscale copied to 3 channels. Training augmentation: rotation up to 7 degrees, random resized crop (scale 0.9-1.0), brightness/contrast jitter; no flips.
+- **Split:** 70/15/15 stratified by class, seed 42: 18,678 train / 4,003 validation / 4,003 test. Every image has a unique patient ID, so the split is leak-free at patient level.
+- **Preprocessing:** resized to 256x256, stored as one `uint8` array, ImageNet normalisation, grayscale copied to 3 channels. Training augmentation: rotation up to 7 degrees, random resized crop (scale 0.9-1.0), brightness/contrast jitter; no flips.
 
-### Data audit: the AP/PA view is a confounder
+### The AP/PA view is a label shortcut
 
 | Class | AP | PA |
 |---|---|---|
@@ -83,78 +75,153 @@ Design rules: red flags can only escalate, never de-escalate; missing intake fie
 | No Lung Opacity / Not Normal | 0.50 | 0.50 |
 | Normal | 0.18 | 0.82 |
 
-AP (often bedside, portable) films come disproportionately from sicker patients, so a model can partly "cheat" by learning the view. A classifier using **only** the AP/PA flag reaches macro-F1 0.376 (accuracy 0.444). All results below are therefore also reported per view.
+AP (often bedside, portable) films come disproportionately from sicker patients, so a model can partly "cheat" by learning the view. A classifier using **only** the AP/PA flag reaches macro-F1 0.376. Every result below is therefore reported per view as well.
 
-Other audit notes: all images are MONOCHROME2 (no inversion needed); sex is balanced across classes; the age field contains invalid values (e.g. 153, 155) and some young children (minimum age 1), so age is not used as a model input.
+Other audit notes: all images are MONOCHROME2; sex is balanced across classes; the age field has invalid values (e.g. 153, 155) and some young children, so age is not a model input.
 
 ## Method
 
 | Model | Description |
 |---|---|
-| View-only baseline | Logistic regression on the AP/PA flag only (no image) |
-| Small CNN | 4 conv blocks, trained from scratch, 8 epochs, lr 1e-3 |
-| DenseNet121 | ImageNet-pretrained, new head (dropout 0.2 + linear), class-weighted cross-entropy |
-| DenseNet121 + view-balanced | Same, but sampling weights equalise every (class, view) group instead of class weights |
+| View-only baseline | Logistic regression on the AP/PA flag only |
+| Small CNN | 4 conv blocks from scratch, 8 epochs |
+| DenseNet121 | ImageNet-pretrained, dropout 0.2 head, class-weighted cross-entropy, AdamW, OneCycle LR (peak 3e-4), mixed precision, early stopping on validation macro-AUROC, seed 42 |
+| DenseNet121 + view-balanced | Same, with sampling weights that equalise every (class, view) group |
 
-DenseNet training: AdamW (weight decay 1e-4), OneCycle learning rate (peak 3e-4), mixed precision, batch 64, up to 10 epochs, early stopping (patience 4) on validation macro-AUROC, best checkpoint restored. Seed 42. About 118 s/epoch on a Kaggle T4.
+## Results
 
-## Results (validation set)
+### 1. Model quality
 
-| Model | Macro-F1 | Macro-AUROC | Urgent (Lung Opacity) recall | AP macro-F1 | PA macro-F1 | PA Urgent recall |
-|---|---|---|---|---|---|---|
-| View-only (AP/PA) | 0.376 | - | 0.785 (precision 0.379) | - | - | - |
-| Small CNN | 0.620 | 0.828 | 0.532 | 0.594 | 0.512 | 0.144 |
-| **DenseNet121** | 0.693 | **0.882** | **0.757** | 0.628 | 0.677 | **0.521** |
-| DenseNet121 + view-balanced | **0.703** | 0.862 | 0.561 | 0.647 | 0.673 | 0.366 |
+| Model (validation unless noted) | Macro-F1 | Macro-AUROC | Opacity recall (argmax) | PA opacity recall |
+|---|---|---|---|---|
+| View-only (AP/PA) | 0.376 | - | 0.785 (precision 0.379) | - |
+| Small CNN | 0.620 | 0.828 | 0.532 | 0.144 |
+| **DenseNet121** | 0.693 | **0.882** | **0.757** | **0.521** |
+| DenseNet121 + view-balanced | 0.703 | 0.862 | 0.561 | 0.366 |
+| **DenseNet121, held-out test set** | **0.695** | **0.883** | - | - |
 
-DenseNet121 per class (argmax decision): Normal P 0.762 / R 0.911; Not Normal P 0.767 / R 0.509; Lung Opacity P 0.551 / R 0.757; accuracy 0.698.
+On the test set: opacity AUROC 0.887, opacity PR-AUC 0.713 (validation 0.884 and 0.692). The test numbers match validation, so there is no sign of overfitting to the validation set.
 
-![DenseNet121 confusion matrix](results/densenet121_plain_confusion.png)
-![DenseNet121 training curves](results/densenet121_plain_curves.png)
+**Finding: view-balanced retraining did not help.** It lowered AUROC (0.882 to 0.862) and PA opacity recall (0.521 to 0.366), so the shortcut was handled in the decision layer instead (below). Reported as a negative result.
 
-**All numbers above are validation results, and the best epoch was also chosen on validation, so they are slightly optimistic. The test set has not been used yet and will be evaluated once, for the final model.**
+### 2. Calibration
 
-### Findings
+Class-weighted training makes a model act as if all classes were equally common, which overstates P(opacity). Temperature scaling alone did not fix this; correcting for the real class prior first did.
 
-1. **Pretraining helps.** DenseNet121 beats the small CNN by +0.073 macro-F1 and +0.054 macro-AUROC, and raises Urgent recall from 0.53 to 0.76.
-2. **The AP/PA shortcut is real, and a simple fix did not work.** View-balanced sampling was meant to improve PA performance. It did not: PA Urgent recall fell from 0.521 to 0.366 and macro-AUROC from 0.882 to 0.862 (run-to-run noise is about 0.005). Its slightly higher macro-F1 (+0.010) is within epoch-to-epoch variation. One possible explanation, not yet tested, is that the view carries legitimate clinical context (sicker patients are more often imaged at the bedside), so removing it discards useful signal. This is reported as a negative result.
-3. **Overfitting after about epoch 5.** Training loss keeps falling while validation loss rises; early stopping and best-checkpoint restoring handle this.
-4. **"Not Normal" is the hardest class** (recall 0.51). It is a catch-all label covering many different findings.
-5. **Argmax comparisons are incomplete for triage.** The next step compares models at a matched Urgent recall (threshold selection on validation data), which is what a triage system actually uses.
+| P(opacity), validation | ECE | Brier | NLL |
+|---|---|---|---|
+| Raw | 0.082 | 0.127 | 0.655 |
+| Temperature only (T=1.35) | 0.084 | 0.123 | 0.634 |
+| Prior correction only | 0.044 | 0.114 | 0.613 |
+| **Prior correction + temperature (T=1.25)** | **0.030** | **0.112** | **0.602** |
 
-## Limitations
+On the test set the calibrated ECE is 0.028.
 
-- Single source dataset; no external validation yet.
-- Mostly adult patients, with some children; labels are coarse and "Not Normal" is heterogeneous.
-- No real patient intake data exists for this dataset, so the clinical-rules layer will be validated on synthetic cases built from published criteria. That is engineering validation, not clinical validation.
-- Residual dependence on the AP/PA view remains (PA Urgent recall is lower than AP).
-- Research prototype only; not for clinical use.
+### 3. Triage policy
 
-## Reproducing
+One global pair of thresholds fails the 2% target in PA films, because the model under-reports opacity there:
+
+| Validation | Opacity sent to Routine (AP / PA) | Urgent recall (AP / PA) | Scans sent to Routine |
+|---|---|---|---|
+| A: global thresholds, 2% target | 0.8% / 6.2% | 0.864 / 0.567 | 32.0% |
+| B: global, 1.5% safety margin | 0.4% / 4.6% | 0.864 / 0.567 | 29.9% |
+| **C: per-view thresholds, 1.5% margin** | 1.4% / 0.0% (in-sample) | 0.801 / 0.820 | 20.8% |
+| D: view unknown (strictest of C) | 0.0% / 0.0% | 0.956 / 0.820 | 16.3% |
+
+In 5-fold out-of-fold checks (thresholds tuned on 4 folds, judged on the 5th), policy C sent 1.8% (AP) and 1.5% (PA) of opacity cases to Routine, versus 4.6% for PA with one global threshold. Policy C was then **frozen**: thresholds AP (t_urgent 0.39, t_routine 0.58), PA (0.12, 0.85); view unknown (0.12, 0.85).
+
+### 4. Final test-set evaluation (single run, frozen policy)
+
+| Policy C, test set | Urgent recall | Opacity sent to Routine | Abnormal sent to Routine | Scans sent to Routine |
+|---|---|---|---|---|
+| All (n=4,003) | 0.785 (0.758-0.811) | **0.009 (0.003-0.016)** | 0.037 | 0.221 |
+| AP films (n=1,879) | 0.788 (0.758-0.818) | 0.003 (0.000-0.007) | 0.033 | 0.109 |
+| PA films (n=2,124) | 0.774 (0.716-0.830) | **0.031 (0.010-0.059)** | 0.043 | 0.320 |
+
+Brackets are 95% bootstrap intervals. Reading it honestly:
+
+- The 2% target holds overall (0.9%, upper bound 1.6%) and in AP films, but **not in PA films** (3.1% point estimate; the interval is wide because PA contains few opacity cases).
+- Urgent recall (78.5%) is slightly below the 80% target; the interval includes it.
+- If the view is unknown, the strictest thresholds catch 93.1% of opacity cases and send 0.7% to Routine, at the price of flagging 49.2% of all scans as Urgent and deprioritising only 18.1%.
+
+### 5. What is in the Urgent group (validation)
+
+Only **2.4%** of Urgent flags are truly normal scans; 48.7% are "Not Normal" (abnormal, but not labelled as opacity) and 49.0% are opacity. Among PA films, 65.4% of Urgent flags are "Not Normal". The system is best read as a prioritisation aid that safely deprioritises about a fifth of the queue, not a sharp urgency detector.
+
+### 6. Grad-CAM audit (validation, 902 opacity images)
+
+| | Grad-CAM | Position prior (where boxes usually sit) | Random point |
+|---|---|---|---|
+| Peak inside a box | 0.582 (0.552-0.614) | **0.594** | 0.123 |
+| IoU at 0.5 x peak | 0.300 | 0.290 | - |
+| Peak zone = zone of largest box | **0.455** | 0.350 | - |
+
+- **Sanity check passed:** a randomly initialised network scores 0.041 (peak inside a box) and 0.063 IoU, so the heatmaps depend on what the model learned.
+- **But localisation is no better than the position prior** at this coarse 8x8 resolution (0.582 vs 0.594). Heatmaps are only better than the prior at zone level.
+- Heatmaps are informative when the case is flagged Urgent (peak inside a box 66.5%) and not when it is missed (23.9%). Explanations should therefore be shown only for Urgent-flagged cases and described as the *area the model focused on*, never as the location of disease.
+
+![Grad-CAM examples](results/gradcam/gradcam_examples.png)
+
+### 7. Error analysis (validation)
+
+- Missed opacity cases are **smaller and fewer**: median box area 0.052 vs 0.107 of the image, median 1 box vs 2 (both p < 0.0001); age does not differ (p = 0.14).
+- 10 of 902 opacity cases were sent to Routine. The 8 worst were all AP films; 7 had a box area of 0.05 or less, and 3 were patients aged 15 or younger (children are rare in this data).
+
+![Worst misses](results/final/worst_misses.png)
+
+## Clinical-rules layer (built, unit-tested)
+
+Plain Python in `src/clinical/rules.py`; every rule carries its source.
+
+- **CRB-65** (one point each for confusion, respiratory rate of 30 or more, low blood pressure, age 65 or over): 0 = lower risk, 1-2 = hospital assessment should be considered, 3-4 = urgent. Source: British Thoracic Society guideline (via a GPnotebook summary).
+- **Oxygen saturation below 92%** is treated as Urgent (same source).
+- **Emergency signs** (struggling to breathe, blue or pale lips/skin, sudden confusion or unusual sleepiness, coughing up blood, fainting or collapse) are treated as Urgent. Sources: NHS and Asthma + Lung UK (formerly the British Lung Foundation).
+- **Chest pain is deliberately not a rule**, because no sourced threshold was verified; it can be added with a source.
+- **Unknown is never normal.** Missing answers add no points, are listed as unknown, and "Routine" cannot be confirmed while confusion, respiratory rate or blood pressure are missing. As a result the app will often answer "Review soon" for users who cannot supply vital signs; this is intentional and configurable.
+
+`src/copilot/fusion.py` combines the imaging level and the clinical level into one auditable "case facts" object. The final level is **never lower than either input** (escalate-only), and a heatmap is allowed only when the imaging level is Urgent. Both properties are covered by unit tests, including a randomised test over thousands of cases.
+
+## Planned: explain-only clinical copilot
+
+A short, paraphrased and cited knowledge base (written from NHS, Asthma + Lung UK and BTS material, with no medicines mentioned) feeds an LLM (Gemini API) that writes a clinician summary and a plain-language explanation from the case facts, behind a verifier that blocks drug names and doses, checks the text against the computed result, and validates citations. The LLM never decides or prescribes. It will be evaluated on synthetic cases and adversarial prompts (red-flag escalation, drug/dose leakage, citation validity).
+
+## Running the tests
+
+```
+python -m venv .venv
+.venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+pytest -q
+```
+
+## Reproducing the experiments
 
 1. Create a Kaggle account and join the RSNA Pneumonia Detection Challenge (accept the rules).
-2. Run `notebooks/01_data_prep.ipynb` on Kaggle (CPU). It produces `images_256.npy`, `train.csv`, `val.csv`, `test.csv`, `boxes.csv`. Save the output as a private dataset (`rsna-png256-splits`).
-3. Run `notebooks/02_training.ipynb` on Kaggle (GPU T4, Internet on) with that dataset attached. It writes metrics, curves, confusion matrices and weights to `results/`.
+2. Run the notebooks in `Notebooks/` in order on Kaggle: data preparation (CPU), training (GPU T4, Internet on), triage thresholds and calibration (CPU), Grad-CAM (GPU), and error analysis plus the single test evaluation (GPU).
 
 The competition data is subject to its terms of use and is not redistributed here.
 
 ## Repository structure
 
 ```
-cxr-triage-copilot/
+CXR-Triage-Copilot/
 ├── README.md
-├── notebooks/
-│   ├── 01_data_prep.ipynb
-│   └── 02_training.ipynb
-├── results/                 (metrics JSON, curves, confusion matrices, comparison.csv)
-├── src/                     (planned: imaging, clinical, rag, llm, eval)
-├── app/                     (planned: API + demo UI)
-└── tests/                   (planned)
+├── requirements.txt
+├── pytest.ini
+├── Notebooks/        (data prep, training, thresholds, calibration, Grad-CAM, error analysis and test)
+├── results/          (metrics JSON, figures, comparison CSVs, triage_config_v2.json)
+├── src/
+│   ├── imaging/      policy.py   (frozen calibration and thresholds)
+│   ├── clinical/     rules.py    (CRB-65 and red flags)
+│   └── copilot/      fusion.py   (escalate-only case facts)
+├── tests/
+├── data/knowledge/   (planned: knowledge cards, retrieval check)
+└── app/              (planned: API and demo)
 ```
 
 ## Acknowledgements
 
-RSNA and Kaggle for the challenge data; NIH for ChestX-ray14; DenseNet (Huang et al., 2017); Grad-CAM (Selvaraju et al., 2017).
+RSNA and Kaggle for the challenge data; NIH for ChestX-ray14; DenseNet (Huang et al., 2017); Grad-CAM (Selvaraju et al., 2017); NHS, Asthma + Lung UK and the British Thoracic Society for the guidance the clinical rules are based on.
 
 ## Author
 
