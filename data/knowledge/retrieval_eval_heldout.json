@@ -1,0 +1,89 @@
+[
+  {
+    "query": "I am breathing really fast and cannot catch my breath",
+    "relevant": [
+      "emergency-breathing",
+      "emergency-signs-overview"
+    ]
+  },
+  {
+    "query": "my mum went grey and clammy",
+    "relevant": [
+      "emergency-blue-skin"
+    ]
+  },
+  {
+    "query": "there was red in my phlegm",
+    "relevant": [
+      "emergency-coughing-blood"
+    ]
+  },
+  {
+    "query": "he passed out in the kitchen",
+    "relevant": [
+      "emergency-collapse"
+    ]
+  },
+  {
+    "query": "is it safe to wait until tomorrow if the scan says urgent",
+    "relevant": [
+      "urgent-assessment"
+    ]
+  },
+  {
+    "query": "what does low blood pressure have to do with how severe pneumonia is",
+    "relevant": [
+      "crb65-explained"
+    ]
+  },
+  {
+    "query": "my pulse oximeter says 89",
+    "relevant": [
+      "low-oxygen"
+    ]
+  },
+  {
+    "query": "how long will I feel tired afterwards",
+    "relevant": [
+      "recovery"
+    ]
+  },
+  {
+    "query": "do antibiotics help",
+    "relevant": [
+      "treatment-by-clinician"
+    ]
+  },
+  {
+    "query": "which patients end up in hospital",
+    "relevant": [
+      "higher-risk-groups",
+      "treatment-by-clinician"
+    ]
+  },
+  {
+    "query": "can I rely on the colours on the picture to find the problem",
+    "relevant": [
+      "tool-heatmap"
+    ]
+  },
+  {
+    "query": "the system said review soon, what does that tell me",
+    "relevant": [
+      "levels-meaning",
+      "review-soon-advice"
+    ]
+  },
+  {
+    "query": "can this replace seeing a doctor",
+    "relevant": [
+      "tool-limits-not-diagnosis"
+    ]
+  },
+  {
+    "query": "is it a problem that I did not know my blood pressure",
+    "relevant": [
+      "incomplete-info"
+    ]
+  }
+]

@@ -1,0 +1,529 @@
+[
+  {
+    "id": "emergency-signs-overview",
+    "topic": "emergency",
+    "title": "Signs that need emergency help",
+    "text": "Some signs mean you should get emergency help straight away instead of waiting: struggling to breathe or being unable to speak, blue or very pale lips, tongue, face or skin, coughing up blood, collapsing or fainting, and sudden confusion or unusual sleepiness.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "emergency",
+      "warning signs",
+      "ambulance",
+      "999",
+      "when to call"
+    ]
+  },
+  {
+    "id": "emergency-breathing",
+    "topic": "emergency",
+    "title": "Struggling to breathe",
+    "text": "Struggling to breathe, such as gasping, choking or being unable to speak a full sentence, is an emergency. Call your local emergency number or go to an emergency department straight away.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "breathless",
+      "cannot speak",
+      "gasping",
+      "choking",
+      "short of breath",
+      "emergency"
+    ]
+  },
+  {
+    "id": "emergency-blue-skin",
+    "topic": "emergency",
+    "title": "Blue, pale or blotchy skin",
+    "text": "Blue, pale or blotchy skin, lips or tongue, or feeling cold and sweaty with pale blotchy skin, are warning signs that need emergency help straight away.",
+    "source_name": "Asthma + Lung UK: Pneumonia",
+    "source_url": "https://www.asthmaandlung.org.uk/conditions/pneumonia",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "blue lips",
+      "pale",
+      "blotchy",
+      "cold and sweaty",
+      "skin",
+      "tongue",
+      "emergency"
+    ]
+  },
+  {
+    "id": "emergency-confusion",
+    "topic": "emergency",
+    "title": "Sudden confusion or unusual sleepiness",
+    "text": "Sudden confusion, such as not knowing where you are, or becoming very sleepy is a reason to get emergency help. Confusion can be an early sign of a chest infection, especially in older people.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "confusion",
+      "confused",
+      "sleepy",
+      "drowsy",
+      "older people",
+      "disoriented",
+      "emergency"
+    ]
+  },
+  {
+    "id": "emergency-coughing-blood",
+    "topic": "emergency",
+    "title": "Coughing up blood",
+    "text": "Coughing up blood is listed by the NHS and by Asthma + Lung UK as a reason to get emergency help.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "blood",
+      "cough",
+      "haemoptysis",
+      "emergency"
+    ]
+  },
+  {
+    "id": "emergency-collapse",
+    "topic": "emergency",
+    "title": "Collapse or fainting",
+    "text": "Collapsing or fainting is a reason to get emergency help, according to Asthma + Lung UK.",
+    "source_name": "Asthma + Lung UK: What is pneumonia?",
+    "source_url": "https://asthmaandlung.org.uk/conditions/pneumonia/what-is-it",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "collapse",
+      "collapsed",
+      "faint",
+      "fainted",
+      "fainting",
+      "passed out",
+      "blacked out",
+      "unconscious",
+      "emergency"
+    ]
+  },
+  {
+    "id": "emergency-how-to-get-help",
+    "topic": "emergency",
+    "title": "How to get emergency help",
+    "text": "In an emergency, do not drive yourself. Ask someone to drive you, or call your local emergency number and ask for an ambulance. Bring the medicines you take, or a list of them.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "ambulance",
+      "drive",
+      "hospital",
+      "emergency department",
+      "A&E",
+      "transport"
+    ]
+  },
+  {
+    "id": "urgent-assessment",
+    "topic": "next_steps",
+    "title": "Higher-risk result without emergency signs",
+    "text": "When a checklist or scan points to higher risk but there are no emergency signs, the sensible step is to be seen by a doctor promptly, in person, through an urgent appointment, an urgent-care service or a hospital, rather than waiting to see if it passes. If an emergency sign appears, treat it as an emergency.",
+    "source_name": "Project wording based on the NHS urgent-versus-emergency advice",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "urgent",
+      "see a doctor",
+      "promptly",
+      "no emergency signs",
+      "next step",
+      "flagged urgent"
+    ]
+  },
+  {
+    "id": "review-soon-advice",
+    "topic": "next_steps",
+    "title": "Signs that call for an urgent appointment",
+    "text": "Coloured phlegm, chest pain that comes and goes or happens when breathing or coughing, or feeling short of breath are reasons to ask for an urgent appointment with a doctor or to call a health helpline.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "phlegm",
+      "mucus",
+      "chest pain",
+      "cough",
+      "short of breath",
+      "appointment",
+      "review soon",
+      "helpline"
+    ]
+  },
+  {
+    "id": "routine-advice",
+    "topic": "next_steps",
+    "title": "What a Routine result means",
+    "text": "A Routine result means nothing in the information provided raised concern for this tool. It does not mean nothing is wrong. If symptoms continue or get worse, speak to a doctor, and watch for emergency signs.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "routine",
+      "reassuring",
+      "relax",
+      "symptoms continue",
+      "get worse",
+      "not diagnosis"
+    ]
+  },
+  {
+    "id": "levels-meaning",
+    "topic": "tool",
+    "title": "What Routine, Review soon and Urgent mean",
+    "text": "Routine, Review soon and Urgent are priority labels for the order in which a clinician should look at a case. They are not diagnoses. Urgent means it should be looked at promptly, Review soon means a clinician should review it but it is less pressing, and Routine means nothing in the information raised concern.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "levels",
+      "triage",
+      "priority",
+      "routine",
+      "review soon",
+      "urgent",
+      "meaning"
+    ]
+  },
+  {
+    "id": "higher-risk-groups",
+    "topic": "background",
+    "title": "Who is more likely to become seriously ill",
+    "text": "Babies, older people and people with heart or lung conditions are more likely to become seriously ill with pneumonia and may need treatment in hospital. Being over 65, or being very unwell, are also reasons for a doctor to consider hospital care.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "risk",
+      "older",
+      "over 65",
+      "heart",
+      "lung condition",
+      "hospital",
+      "vulnerable"
+    ]
+  },
+  {
+    "id": "crb65-explained",
+    "topic": "assessment",
+    "title": "The CRB-65 checklist",
+    "text": "CRB-65 is a four-item checklist doctors use to judge how serious a pneumonia may be: new confusion, fast breathing (30 or more breaths a minute), low blood pressure, and age 65 or over. Each item scores one point. A score of 0 suggests lower risk, 1 or 2 suggests hospital assessment should be considered, and 3 or 4 suggests urgent hospital admission.",
+    "source_name": "GPnotebook summary of the British Thoracic Society CAP guideline (CRB65, pulse oximetry)",
+    "source_url": "https://gpnotebook.com/pages/respiratory-and-chest-medicine/crb65-score-in-the-assessment-of-community-acquired-pneumonia-cap",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "CRB65",
+      "CRB-65",
+      "score",
+      "severity",
+      "confusion",
+      "breathing rate",
+      "blood pressure",
+      "age 65"
+    ]
+  },
+  {
+    "id": "low-oxygen",
+    "topic": "assessment",
+    "title": "Low oxygen reading",
+    "text": "British Thoracic Society guidance treats an oxygen saturation below 92 percent on a pulse oximeter as a sign that hospital assessment is needed.",
+    "source_name": "GPnotebook summary of the British Thoracic Society CAP guideline (CRB65, pulse oximetry)",
+    "source_url": "https://gpnotebook.com/pages/respiratory-and-chest-medicine/crb65-score-in-the-assessment-of-community-acquired-pneumonia-cap",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "oxygen",
+      "saturation",
+      "SpO2",
+      "pulse oximeter",
+      "92",
+      "reading",
+      "hospital"
+    ]
+  },
+  {
+    "id": "what-is-pneumonia",
+    "topic": "background",
+    "title": "What pneumonia is",
+    "text": "Pneumonia is inflammation of the lungs, usually caused by an infection.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "pneumonia",
+      "what is",
+      "lungs",
+      "infection",
+      "inflammation"
+    ]
+  },
+  {
+    "id": "common-symptoms",
+    "topic": "background",
+    "title": "Common symptoms",
+    "text": "Common symptoms include a cough, shortness of breath, a high temperature, chest pain, an aching body, feeling very tired, loss of appetite and wheezing. They can start suddenly or build up over a few days.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "symptoms",
+      "cough",
+      "fever",
+      "temperature",
+      "tired",
+      "wheezing",
+      "signs"
+    ]
+  },
+  {
+    "id": "causes",
+    "topic": "background",
+    "title": "What causes pneumonia",
+    "text": "Pneumonia is usually caused by a bacterial or viral infection. It can sometimes follow another infection such as flu, RSV or COVID-19.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "causes",
+      "bacteria",
+      "virus",
+      "flu",
+      "infection",
+      "why"
+    ]
+  },
+  {
+    "id": "treatment-by-clinician",
+    "topic": "background",
+    "title": "How pneumonia is treated",
+    "text": "Treatment depends on what caused the pneumonia and how unwell someone is, and a clinician decides it. Some people recover at home, while others need hospital care, where extra oxygen can be given to help breathing. Most people get better within 2 to 4 weeks.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "treatment",
+      "treated",
+      "hospital",
+      "home",
+      "recover",
+      "clinician decides",
+      "oxygen"
+    ]
+  },
+  {
+    "id": "recovery",
+    "topic": "background",
+    "title": "Recovery",
+    "text": "Recovery is different for everyone. Many people feel better 2 to 4 weeks after starting treatment, but full recovery can take 6 months or more.",
+    "source_name": "Asthma + Lung UK: Pneumonia",
+    "source_url": "https://www.asthmaandlung.org.uk/conditions/pneumonia",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "recovery",
+      "how long",
+      "getting better",
+      "weeks",
+      "months",
+      "tired"
+    ]
+  },
+  {
+    "id": "self-care-general",
+    "topic": "background",
+    "title": "General self-care advice",
+    "text": "General NHS advice is to rest until you feel better, drink plenty of fluids, cover your mouth and nose when you cough or sneeze, put used tissues in the bin quickly, wash your hands often, and avoid smoking. Ask a clinician before taking any medicines.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "rest",
+      "fluids",
+      "hygiene",
+      "smoking",
+      "self-care",
+      "at home",
+      "help myself"
+    ]
+  },
+  {
+    "id": "prevention-vaccines",
+    "topic": "background",
+    "title": "Vaccines",
+    "text": "Vaccines are available against some infections that can lead to pneumonia, such as flu, pneumococcal infection, RSV and COVID-19. A clinician or pharmacist can say which are recommended for a particular person.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "vaccine",
+      "prevention",
+      "prevent",
+      "jab",
+      "flu",
+      "pneumococcal"
+    ]
+  },
+  {
+    "id": "xray-role",
+    "topic": "background",
+    "title": "The role of a chest X-ray",
+    "text": "A chest X-ray and blood tests may be used to check for pneumonia or other conditions. A clinician interprets the results together with the person's symptoms.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "x-ray",
+      "chest x-ray",
+      "scan",
+      "tests",
+      "blood tests",
+      "what does it show"
+    ]
+  },
+  {
+    "id": "children",
+    "topic": "tool",
+    "title": "Babies and children",
+    "text": "Babies and young children can become seriously ill with pneumonia, and a baby who is floppy or cannot be woken needs emergency help. This tool was built mostly on adult X-rays, so a child should always be seen by a clinician.",
+    "source_name": "NHS: Pneumonia",
+    "source_url": "https://www.nhs.uk/conditions/pneumonia/",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "child",
+      "children",
+      "baby",
+      "infant",
+      "paediatric",
+      "kid",
+      "young"
+    ]
+  },
+  {
+    "id": "incomplete-info",
+    "topic": "tool",
+    "title": "Why missing information matters",
+    "text": "If breathing rate, blood pressure or confusion were not provided, the tool cannot rule out higher risk. It treats missing answers as unknown, never as normal, and will not confirm a Routine result. A clinician can measure these quickly.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "missing",
+      "not provided",
+      "incomplete",
+      "unknown",
+      "why not routine",
+      "breathing rate",
+      "blood pressure"
+    ]
+  },
+  {
+    "id": "tool-score-meaning",
+    "topic": "tool",
+    "title": "What the imaging percentage means",
+    "text": "The imaging percentage estimates how much the scan resembles pneumonia-like opacity in the research data the model learned from. It is not a diagnosis, and it can be wrong, especially for children, unusual images and very small findings.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "percentage",
+      "probability",
+      "score",
+      "estimate",
+      "opacity",
+      "model",
+      "what does it mean",
+      "chance"
+    ]
+  },
+  {
+    "id": "tool-heatmap",
+    "topic": "tool",
+    "title": "What the heatmap shows",
+    "text": "The coloured heatmap shows the area the model focused on. It is approximate and is not proof of where a problem is. In testing it matched the radiologists' marked areas no better than a typical-location guess, so it is shown only for scans flagged Urgent.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "heatmap",
+      "grad-cam",
+      "colour",
+      "highlight",
+      "area",
+      "where"
+    ]
+  },
+  {
+    "id": "small-opacities-limit",
+    "topic": "tool",
+    "title": "Small findings can be missed",
+    "text": "The imaging model is more likely to miss small or faint findings: in testing, the cases it missed had smaller marked areas than the ones it caught. A normal-looking result does not rule out illness.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "miss",
+      "missed",
+      "small",
+      "faint",
+      "shadow",
+      "false negative",
+      "limitation"
+    ]
+  },
+  {
+    "id": "view-limit",
+    "topic": "tool",
+    "title": "Lying-down versus standing X-rays",
+    "text": "X-rays taken lying in bed (AP) and standing (PA) look different, and in testing the model was less reliable on standing (PA) films. If the view is unknown, the tool uses stricter settings, so more cases are flagged for review.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "AP",
+      "PA",
+      "view",
+      "lying down",
+      "standing",
+      "portable",
+      "bedside"
+    ]
+  },
+  {
+    "id": "tool-limits-not-diagnosis",
+    "topic": "tool",
+    "title": "What this tool is and is not",
+    "text": "This is a research prototype for decision support. It does not diagnose, prescribe or replace a clinician. Its guidance comes from UK sources, and local guidance may differ. If you are worried, speak to a clinician.",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "diagnosis",
+      "disclaimer",
+      "prototype",
+      "not a doctor",
+      "limits",
+      "UK sources",
+      "worried"
+    ]
+  },
+  {
+    "id": "questions-for-doctor",
+    "topic": "next_steps",
+    "title": "Questions worth asking a clinician",
+    "text": "Useful questions for a clinician: What could explain this scan? Do I need other tests, such as blood tests or a repeat X-ray? Which symptoms should make me come back sooner? How long should recovery take? Does any health condition I have raise my risk?",
+    "source_name": "Project documentation (CXR-Triage Copilot)",
+    "source_url": "https://github.com/AbhishekSharma1708316/CXR-Triage-Copilot",
+    "last_checked": "2026-11-04",
+    "tags": [
+      "questions",
+      "ask doctor",
+      "appointment",
+      "prepare",
+      "what should I ask"
+    ]
+  }
+]

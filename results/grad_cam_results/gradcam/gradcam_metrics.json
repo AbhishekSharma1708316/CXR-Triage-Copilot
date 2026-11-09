@@ -1,0 +1,32 @@
+{
+  "n_opacity_images": 902,
+  "layer": "DenseNet121 final feature map (8x8, upsampled to 256x256)",
+  "target_class": "Lung Opacity",
+  "pointing_hit": [
+    0.582039911308204,
+    0.549889135254989,
+    0.61529933481153
+  ],
+  "iou_0.5": [
+    0.30002790109784755,
+    0.28919048858531693,
+    0.31117705738365825
+  ],
+  "energy_in_boxes": [
+    0.29678713842092286,
+    0.2849655026968387,
+    0.30837193682101105
+  ],
+  "baseline_position_prior": {
+    "pointing_hit": 0.5942350332594235,
+    "iou_0.5": 0.2902847515952073
+  },
+  "baseline_random_point_hit": 0.12282525039300686,
+  "random_weights_model": {
+    "pointing_hit": 0.022172949002217297,
+    "iou_0.5": 0.010460409380192819
+  },
+  "zone_peak_in_box_zones": 0.6607538802660754,
+  "zone_peak_equals_largest_box_zone": 0.45454545454545453,
+  "note": "validation set only; ci = (mean, 2.5%, 97.5%) bootstrap"
+}

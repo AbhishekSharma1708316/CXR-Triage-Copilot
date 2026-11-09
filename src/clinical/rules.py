@@ -11,7 +11,7 @@ from typing import Optional
 
 SRC_BTS = "British Thoracic Society guideline for community-acquired pneumonia in adults (CRB65 and pulse oximetry recommendations)"
 SRC_NHS = "NHS pneumonia guidance: when to call 999"
-SRC_BLF = "British Lung Foundation pneumonia guidance: when to call 999"
+SRC_ALUK = "Asthma + Lung UK (formerly the British Lung Foundation): pneumonia, when to call 999"
 
 LEVELS = ("Routine", "Review soon", "Urgent")
 
@@ -19,9 +19,9 @@ LEVELS = ("Routine", "Review soon", "Urgent")
 EMERGENCY_FLAGS = [
     ("cannot_speak_full_sentences", "Struggling to breathe or unable to speak in full sentences", SRC_NHS),
     ("blue_or_pale_lips_skin", "Blue, pale or blotchy lips, tongue or skin", SRC_NHS),
-    ("confusion", "Sudden or new confusion", SRC_NHS),
-    ("coughing_blood", "Coughing up blood", SRC_BLF),
-    ("fainted_or_collapsed", "Fainting or collapse", SRC_BLF),
+    ("confusion", "Sudden or new confusion, or becoming very sleepy", SRC_NHS),
+    ("coughing_blood", "Coughing up blood", SRC_NHS),
+    ("fainted_or_collapsed", "Fainting or collapse", SRC_ALUK),
 ]
 
 _BOOL_FIELDS = ("confusion", "cannot_speak_full_sentences", "blue_or_pale_lips_skin", "coughing_blood", "fainted_or_collapsed")

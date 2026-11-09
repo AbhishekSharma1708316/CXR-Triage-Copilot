@@ -1,0 +1,34 @@
+{
+  "model": "densenet121_plain",
+  "calibration": {
+    "step_1": "multiply class probabilities by the training class prior, renormalise",
+    "prior_normal_notnormal_opacity": [
+      0.3317,
+      0.443,
+      0.2253
+    ],
+    "step_2": "temperature scaling (divide log-probabilities by T, renormalise)",
+    "temperature": 1.25
+  },
+  "policy": "Urgent if P(opacity) >= t_urgent; else Routine if P(normal) >= t_routine; else Review soon",
+  "targets": {
+    "urgent_recall": 0.8,
+    "promise_max_opacity_to_routine": 0.02,
+    "design_max_opacity_to_routine": 0.015
+  },
+  "thresholds_when_view_known": {
+    "AP": {
+      "t_urgent": 0.39,
+      "t_routine": 0.58
+    },
+    "PA": {
+      "t_urgent": 0.12,
+      "t_routine": 0.85
+    }
+  },
+  "thresholds_when_view_unknown": {
+    "t_urgent": 0.12,
+    "t_routine": 0.85
+  },
+  "selected_on": "validation set only; test set untouched"
+}

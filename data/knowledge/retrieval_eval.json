@@ -1,0 +1,183 @@
+[
+  {
+    "query": "My lips look blue what should I do",
+    "relevant": [
+      "emergency-blue-skin",
+      "emergency-signs-overview"
+    ]
+  },
+  {
+    "query": "I cannot speak a full sentence because I am so breathless",
+    "relevant": [
+      "emergency-breathing"
+    ]
+  },
+  {
+    "query": "I coughed up blood this morning",
+    "relevant": [
+      "emergency-coughing-blood"
+    ]
+  },
+  {
+    "query": "My father fainted and collapsed",
+    "relevant": [
+      "emergency-collapse"
+    ]
+  },
+  {
+    "query": "My grandmother is suddenly confused and very sleepy",
+    "relevant": [
+      "emergency-confusion"
+    ]
+  },
+  {
+    "query": "Should I drive myself to the hospital",
+    "relevant": [
+      "emergency-how-to-get-help"
+    ]
+  },
+  {
+    "query": "What does the CRB-65 score mean",
+    "relevant": [
+      "crb65-explained"
+    ]
+  },
+  {
+    "query": "My oxygen reading on the pulse oximeter is 90 percent",
+    "relevant": [
+      "low-oxygen"
+    ]
+  },
+  {
+    "query": "What is pneumonia",
+    "relevant": [
+      "what-is-pneumonia"
+    ]
+  },
+  {
+    "query": "What are the usual symptoms of pneumonia",
+    "relevant": [
+      "common-symptoms"
+    ]
+  },
+  {
+    "query": "What causes pneumonia",
+    "relevant": [
+      "causes"
+    ]
+  },
+  {
+    "query": "How is pneumonia treated",
+    "relevant": [
+      "treatment-by-clinician"
+    ]
+  },
+  {
+    "query": "How long does recovery take",
+    "relevant": [
+      "recovery"
+    ]
+  },
+  {
+    "query": "What can I do at home to help myself get better",
+    "relevant": [
+      "self-care-general"
+    ]
+  },
+  {
+    "query": "Can pneumonia be prevented with vaccines",
+    "relevant": [
+      "prevention-vaccines"
+    ]
+  },
+  {
+    "query": "What does a chest x-ray show",
+    "relevant": [
+      "xray-role"
+    ]
+  },
+  {
+    "query": "Is my young child at risk",
+    "relevant": [
+      "children"
+    ]
+  },
+  {
+    "query": "Who is more likely to get seriously ill",
+    "relevant": [
+      "higher-risk-groups"
+    ]
+  },
+  {
+    "query": "Why did the tool not say routine",
+    "relevant": [
+      "incomplete-info"
+    ]
+  },
+  {
+    "query": "What does the percentage on my scan mean",
+    "relevant": [
+      "tool-score-meaning"
+    ]
+  },
+  {
+    "query": "What is the coloured heatmap on the image",
+    "relevant": [
+      "tool-heatmap"
+    ]
+  },
+  {
+    "query": "Is this a diagnosis",
+    "relevant": [
+      "tool-limits-not-diagnosis"
+    ]
+  },
+  {
+    "query": "What should I ask my doctor",
+    "relevant": [
+      "questions-for-doctor"
+    ]
+  },
+  {
+    "query": "What do Routine, Review soon and Urgent mean",
+    "relevant": [
+      "levels-meaning"
+    ]
+  },
+  {
+    "query": "Chest pain when I breathe in and I cough up green phlegm",
+    "relevant": [
+      "review-soon-advice"
+    ]
+  },
+  {
+    "query": "The scan is flagged urgent but I have no emergency symptoms, what next",
+    "relevant": [
+      "urgent-assessment"
+    ]
+  },
+  {
+    "query": "My result says routine, can I relax",
+    "relevant": [
+      "routine-advice"
+    ]
+  },
+  {
+    "query": "Could the model miss a small shadow",
+    "relevant": [
+      "small-opacities-limit"
+    ]
+  },
+  {
+    "query": "Does it matter if the x-ray was taken lying down in bed",
+    "relevant": [
+      "view-limit"
+    ]
+  },
+  {
+    "query": "I feel cold and sweaty with pale blotchy skin",
+    "relevant": [
+      "emergency-blue-skin"
+    ]
+  }
+]

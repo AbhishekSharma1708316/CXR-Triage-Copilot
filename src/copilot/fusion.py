@@ -40,6 +40,8 @@ def assess_case(p_raw, view, intake: Intake) -> dict:
                            + ", ".join(clin["unknown_key_items"]) + ".")
     elif clin["unknown_key_items"]:
         limitations.append("Not provided (treated as unknown, never as normal): " + ", ".join(clin["unknown_key_items"]) + ".")
+    if intake.age < 18:
+        limitations.append("The imaging model was trained mostly on adult X-rays, so results for a child are less reliable.")
     if not img["view_known"]:
         limitations.append("The X-ray view (AP or PA) was unknown, so the strictest imaging thresholds were used.")
 

@@ -1,0 +1,9 @@
+,densenet121_plain,densenet121_viewbalanced
+t_urgent,0.4,0.19
+t_routine,0.63,0.53
+urgent_recall,0.802,0.807
+urgent_precision,0.513,0.499
+opacity_to_routine,0.018,0.02
+abnormal_to_routine,0.076,0.083
+routine_share,0.318,0.313
+urgent_share,0.352,0.364

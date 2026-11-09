@@ -74,3 +74,9 @@ def test_property_escalate_only_and_routine_requires_complete_intake():
             assert r["final"]["level"] == 2
         if r["final"]["level"] == 0:                                    # rule 2: unknown is never normal
             assert r["clinical"]["intake_complete"]
+
+
+def test_child_gets_a_limitation():
+    r = assess_case(CONFIDENT_NORMAL, "AP", full(age=9))
+    assert any("child" in s for s in r["limitations"])
+    assert not any("child" in s for s in assess_case(CONFIDENT_NORMAL, "AP", full(age=40))["limitations"])

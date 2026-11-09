@@ -1,0 +1,20 @@
+{
+  "policy": "Urgent if P(opacity) >= t_urgent; else Routine if P(normal) >= t_routine; else Review soon",
+  "targets": {
+    "urgent_recall": 0.8,
+    "max_opacity_to_routine": 0.02
+  },
+  "models": {
+    "densenet121_plain": {
+      "t_urgent": 0.4,
+      "t_routine": 0.63,
+      "temperature": 1.3500000000000008
+    },
+    "densenet121_viewbalanced": {
+      "t_urgent": 0.19,
+      "t_routine": 0.53,
+      "temperature": 2.600000000000002
+    }
+  },
+  "selected_on": "validation set; test set untouched"
+}
